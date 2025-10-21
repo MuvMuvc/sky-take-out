@@ -1,5 +1,6 @@
 package com.sky.result;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,9 +12,12 @@ import java.io.Serializable;
 @Data
 public class Result<T> implements Serializable {
 
-    private Integer code; //编码：1成功，0和其它数字为失败
-    private String msg; //错误信息
-    private T data; //数据
+    @Schema(description = "编码：1成功，0和其它数字为失败", example = "1")
+    private Integer code;
+    @Schema(description = "错误信息")
+    private String msg;
+    @Schema(description = "数据")
+    private T data;
 
     public static <T> Result<T> success() {
         Result<T> result = new Result<T>();

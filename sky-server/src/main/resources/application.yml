@@ -3,10 +3,10 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: dev # 设置当前激活的配置文件为 dev（开发环境），会同时加载 application.yml 和 application-dev.yml 的配置
   main:
-    allow-circular-references: true
-#  datasource:
+    allow-circular-references: true # 允许 Bean 之间的循环依赖
+#  datasource:  -> 使用 Druid 连接池的配置
 #    druid:
 #      driver-class-name: ${sky.datasource.driver-class-name}
 #      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
@@ -15,13 +15,18 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sky_take_out?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    # serverTimezone=Asia/Shanghai：设置数据库时区为上海
+    #useUnicode=true&characterEncoding=utf-8：使用 UTF-8 编码
+    #zeroDateTimeBehavior=convertToNull：将 0000-00-00 日期转为 null
+    #useSSL=false：不使用 SSL 连接
+    #allowPublicKeyRetrieval=true：允许获取公钥
     username: root
     password: 008899
 
 mybatis:
   #mapper配置文件
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.sky.entity
+  type-aliases-package: com.sky.entity # 给 Java类起一个短名称，在 Mapper XML 中可以直接使用短名称代替完整的包名
   configuration:
     #开启驼峰命名
     map-underscore-to-camel-case: true
@@ -42,3 +47,34 @@ sky:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+
+
+# springdoc-openapi配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      #生成文档所需的扫包路径，一般为启动类目录
+      packages-to-scan: com.sky.controller, com.sky.dto, com.sky.vo
+#knife4j配置
+knife4j:
+  #是否启用增强设置
+  enable: false
+  #开启生产环境屏蔽
+  production: false
+  #是否启用登录认证
+  basic:
+    enable: true
+    username: admin
+    password: 123456
+  setting:
+    language: zh_cn
+    enable-version: true
+    enable-swagger-models: true
+    swagger-model-name: 用户模块
