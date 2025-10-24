@@ -78,3 +78,10 @@ knife4j:
     enable-version: true
     enable-swagger-models: true
     swagger-model-name: 用户模块
+
+#mybatis 分页插件 pagehelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
