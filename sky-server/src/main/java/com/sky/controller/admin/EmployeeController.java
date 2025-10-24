@@ -75,7 +75,7 @@ public class EmployeeController {
 
     /**
      * 新增员工
-     * @param EmployeeDTO
+     * @param
      * @return
      */
     @Operation(summary = "新增员工")
@@ -97,5 +97,19 @@ public class EmployeeController {
         log.info("员工分页查询：{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.page(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @Operation(summary = "启用禁用员工账号")
+    @PostMapping("/status/{status}")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("员工状态：{}，员工id：{}", status, id);
+        employeeService.startOrStop(status, id);
+        return Result.success();
     }
 }
