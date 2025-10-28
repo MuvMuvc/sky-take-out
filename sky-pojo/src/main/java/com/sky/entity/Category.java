@@ -1,5 +1,6 @@
 package com.sky.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,33 +12,35 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "分类")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "主键", required = true, example = "1")
     private Long id;
 
-    //类型: 1菜品分类 2套餐分类
+    @Schema(description = "类型: 1菜品分类 2套餐分类", required = true, example = "1")
     private Integer type;
 
-    //分类名称
+    @Schema(description = "分类名称", required = true, example = "人气套餐")
     private String name;
 
-    //顺序
+    @Schema(description = "顺序", required = true, example = "1")
     private Integer sort;
 
-    //分类状态 0标识禁用 1表示启用
+    @Schema(description = "状态: 0禁用 1启用", required = true, example = "1")
     private Integer status;
 
-    //创建时间
+    @Schema(description = "创建时间", required = true, example = "2023-05-05 00:00:00")
     private LocalDateTime createTime;
 
-    //更新时间
+    @Schema(description = "更新时间", required = true, example = "2023-05-05 00:00:00")
     private LocalDateTime updateTime;
 
-    //创建人
+    @Schema(description = "创建人", required = true, example = "1")
     private Long createUser;
 
-    //修改人
+    @Schema(description = "更新人", required = true, example = "1")
     private Long updateUser;
 }
